@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<plugin name="mgsimpleweather">
+	<title>mgSimpleWeather</title>
+	<summary>This mod displays weather forecast in the Admin Dashboard.</summary>
+	<author>ModsGuru</author>
+	<contributor>ModsGuru</contributor>
+	<version>3.1.1</version>
+	<date>2014-10-27</date>
+	<compatibility>3.1</compatibility>
+
+	<config group="miscellaneous" name="mgsimpleweather_plugin" type="divider" value="General">Weather Settings</config>
+	<config group="miscellaneous" name="mgsimpleweather_location" type="text" description="Weather Forecast Area">New York, NY</config>
+
+	<phrases>
+		<phrase category="admin" key="mgsimpleweather_weather_forecast">Weather Forecast</phrase>
+	</phrases>
+
+	<hooks>
+		<hook name="smartyDashboardAfterStatistics" page_type="admin" type="smarty">
+			<![CDATA[
+<div class="col col-lg-4">
+	<div class="widget widget-small widget-small-weather" title="{lang key='mgsimpleweather_weather_forecast'}">
+		<div class="widget-content">
+			<div class="widget-total-stats">
+				<div id="weatherBlock" data-weather-location="{$core.config.mgsimpleweather_location}"></div>
+			</div>
+			<div class="widget-icon"><i class="i-earth"></i></div>
+		</div>
+	</div>
+</div>
+
+{ia_add_media files='js:_IA_URL_plugins/mgsimpleweather/js/jquery.simpleWeather.min, css:_IA_URL_plugins/mgsimpleweather/js/jquery.simpleWeather'}
+
+{ia_add_js}
+$(function()
+{
+	$.simpleWeather(
+	{
+		location: $('div#weatherBlock').data('weather-location'),
+		woeid: '',
+		unit: 'c',
+		success: function(weather)
+		{
+			html = '<h2><i class="icon-'+weather.code+'"></i> '+weather.temp+'&deg;'+weather.units.temp+'</h2>';
+			html += weather.city + ', ' + weather.region + '<br><span class="currently">' + weather.currently + '</span>';
+			// html += ', ' + weather.wind.direction + ' ' + weather.wind.speed + ' ' + weather.units.speed;
+
+			$("#weatherBlock").html(html);
+		},
+		error: function(error)
+		{
+			$("#weatherBlock").html('<p>' + error + '</p>');
+		}
+	});
+});
+{/ia_add_js}
+			]]>
+		</hook>
+	</hooks>
+</plugin>
