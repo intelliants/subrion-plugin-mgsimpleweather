@@ -4,9 +4,9 @@
 	<summary>This mod displays weather forecast in the Admin Dashboard.</summary>
 	<author>ModsGuru</author>
 	<contributor>ModsGuru</contributor>
-	<version>3.1.1</version>
-	<date>2014-10-27</date>
-	<compatibility>3.1</compatibility>
+	<version>4.0.0</version>
+	<date>2015-11-10</date>
+	<compatibility>4.0</compatibility>
 
 	<config group="miscellaneous" name="mgsimpleweather_plugin" type="divider" value="General">Weather Settings</config>
 	<config group="miscellaneous" name="mgsimpleweather_location" type="text" description="Weather Forecast Area">New York, NY</config>
